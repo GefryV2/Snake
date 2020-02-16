@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        let width = canvas.width;
+        let height = canvas.height;
+        const blockSize = 10;
+        let heightInBlock = height / blockSize;
+        let widthInBlock = width / blockSize;
+        let score = 0;
+
+        const intervalId = setInterval(function () {
+            context.clearRect(0, 0, width, height);
+
+            drawBorder();
+            showScore();
+        }, 100);
+
+        function drawBorder() {
+            context.strokeStyle = 'Green';
+            context.lineWidth = blockSize;
+            context.beginPath();
+            context.moveTo(0, 0);
+            context.lineTo(width, 0);
+            context.lineTo(width, height);
+            context.lineTo(0, height);
+            context.lineTo(0, 0);
+            context.stroke();
+        }
+        function showScore() {
+            context.textBaseline = 'top';
+            context.font = '20px Arial';
+            context.fillText(`Рахунок: ${score}`, blockSize + 1, blockSize + 1, width - blockSize * 2);
+
+        }
+        function gameOver() {
+            clearInterval(intervalId);
+            context.textBaseline = 'middle';
+            context.textAlign = 'center';
+            context.font = '80px Arial';
+            context.fillText(`Game Over`, width / 2, height / 2, width - blockSize * 2);
+        }
+        setTimeout(gameOver,101)
+
+
+
+    </script>
+</body>
+
+</html>
